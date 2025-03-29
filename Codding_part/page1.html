@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="index.css" type="text/css">
+<body>
+    <style>
+        body {
+            background-image: url('../content_part/aa775f5e2a776159339c88bbf2050435.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <div class="instruction_box" style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: bisque;
+        border-radius: 15px;
+        width: 70%;
+        border: 4px solid rgb(84, 35, 5);
+        height: 400px;
+        margin: auto;
+        margin-top: 13%;
+        box-shadow: 0 4px 8px rgba(41, 40, 40, 0.2);
+        text-align: center;
+    ">
+        <p id="animatedText" style="font-size: 20px; color: #333; padding: 10px; white-space: pre-wrap; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"></p>
+        <script>
+            const text = `"Ah! There yeh are! I was hopin’ yeh’d show up. The name’s Rubeus Hagrid, Keeper of Keys and Grounds at Hogwarts. Yeh must be wonderin’ why I’m here, eh? Well, it's serious business this time." \n\n
+        "Harry’s discovered somethin’ terrible—another Horcrux. Now, if yeh don’t know what a Horcrux is, it’s a dark bit o’ magic. Real nasty stuff. You-Know-Who—Voldemort—split his soul into pieces, hidin’ ‘em in objects to make himself immortal. Destroyin’ ‘em is the only way to finish ‘im for good." \n\n
+        "Harry, Ron, and Hermione can’t do this alone. They need someone brave, someone ready to face danger. That’s where you come in! Will yeh help ‘em track down the lost Horcruxes and put an end to Voldemort’s evil for good?"`;
+
+            const animatedTextElement = document.getElementById('animatedText');
+            let index = 0;
+
+            function typeText() {
+                if (index < text.length) {
+                    animatedTextElement.textContent += text[index];
+                    index++;
+                    setTimeout(typeText, 100); 
+                }
+            }
+
+            typeText();
+
+            // Add a button after the text finishes typing
+            function addYesButton() {
+                const button = document.createElement('button');
+                button.textContent = 'Yes';
+                button.style.marginTop = '20px';
+                button.style.padding = '10px 20px';
+                button.style.fontSize = '16px';
+                button.style.borderRadius = '5px';
+                button.style.border = 'none';
+                button.style.backgroundColor = 'rgb(84, 35, 5)';
+                button.style.color = 'white';
+                button.style.cursor = 'pointer';
+                button.style.fontFamily='"Gill Sans", sans-serif'
+                button.style.marginRight = '1px';
+
+                button.addEventListener('click', () => {
+                    window.location.href = 'page2.html'; 
+                });
+
+                animatedTextElement.parentElement.appendChild(button);
+            }
+
+            // Modify typeText to call addYesButton when done
+            function typeText() {
+                if (index < text.length) {
+                    animatedTextElement.textContent += text[index];
+                    index++;
+                    setTimeout(typeText,); 
+                } else {
+                    addYesButton(); // Call the function to add the button
+                }
+            }
+            // Function to animate the narrator image
+            function enlargeNarrator() {
+                const narratorImage = document.querySelector('img[src="../content_part/OG hagrid.png"]');
+                if (narratorImage) {
+                    narratorImage.style.width = '200px'; // Increase width
+                    narratorImage.style.height = 'auto'; // Maintain aspect ratio
+                }
+            }
+
+            // Call the function to enlarge the narrator after it appears
+            setTimeout(enlargeNarrator, 1100); // Delay to ensure the narrator is visible
+            function showNarrator() {
+                const narratorContainer = document.createElement('div');
+                narratorContainer.style.position = 'fixed';
+                narratorContainer.style.bottom = '-200px'; // Start off-screen
+                narratorContainer.style.left = '20px';
+                narratorContainer.style.display = 'flex';
+                narratorContainer.style.flexDirection = 'column';
+                narratorContainer.style.alignItems = 'center';
+                narratorContainer.style.transition = 'bottom 1s ease-in-out';
+
+                const narratorImage = document.createElement('img');
+                narratorImage.src = '../content_part/OG hagrid.png'; // Replace with your image link
+                narratorImage.alt = 'Narrator';
+                narratorImage.style.width = '150px'; // Adjust size as needed
+                narratorImage.style.height = 'auto';
+
+                const playButton = document.createElement('button');
+                playButton.textContent = 'Play Audio';
+                playButton.style.marginTop = '10px';
+                playButton.style.padding = '10px 20px';
+                playButton.style.fontSize = '16px';
+                playButton.style.borderRadius = '5px';
+                playButton.style.border = 'none';
+                playButton.style.backgroundColor = 'rgb(84, 35, 5)';
+                playButton.style.color = 'white';
+                playButton.style.cursor = 'pointer';
+                playButton.style.fontFamily = '"Gill Sans", sans-serif';
+
+                playButton.addEventListener('click', () => {
+                    const audio = new Audio('../content_part/audio.mp3'); // Replace with your audio file path
+                    audio.play();
+                });
+
+                narratorContainer.appendChild(narratorImage);
+                narratorContainer.appendChild(playButton);
+                document.body.appendChild(narratorContainer);
+
+                // Animate the container to move up
+                setTimeout(() => {
+                    narratorContainer.style.bottom = '20px'; // Final position
+                }, 100);
+            }
+
+            // Call the function to show the narrator after the text starts typing
+            showNarrator();
+
+           
+        </script>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+         <div class="circle"></div>
+        <script src="index.js"></script>
+    </div>
+    
+</body>
+</html>

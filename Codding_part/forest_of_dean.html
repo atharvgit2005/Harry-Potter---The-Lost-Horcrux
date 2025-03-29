@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter and the Lost Horcrux</title>
+    <style>
+        body {
+            background-image: url('../content_part/forest\ of\ dean.png`');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .conversation-container {
+            position: relative;
+            width: 80%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .character {
+            position: absolute;
+            width: 400px;
+            height: auto;
+            display: none;
+        }
+        
+        .harry {
+            left: 5%;
+        }
+        
+        .bellatrix {
+            right: 5%;
+        }
+        
+        .conversation-box {
+            background-color: rgba(20, 20, 20, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 50%;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 1.2em;
+            position: relative;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .next-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        
+        .next-button:hover {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="conversation-container">
+        <img src="../content_part/Harry.png" class="character harry" id="harry">
+        <img src="../content_part/bellatrix.png" class="character bellatrix" id="bellatrix">
+        <div class="conversation-box">
+            <p id="conversation-text">Bellatrix: "Harry, you cannot escape me! The Dark Lord will have his revenge!"</p>
+            <button class="next-button" onclick="nextConversation()">Next</button>
+        </div>
+    </div>
+    
+    <script>
+        let conversationStep = 0;
+        const harryImage = document.getElementById('harry');
+        const bellatrixImage = document.getElementById('bellatrix');
+        const conversationText = document.getElementById('conversation-text');
+        
+        function nextConversation() {
+            if (conversationStep === 0) {
+                conversationText.textContent = "Harry: I won't let you win, Bellatrix! Your dark magic ends here!";
+                harryImage.style.display = 'block';
+                bellatrixImage.style.display = 'none';
+                conversationStep++;
+            } else if (conversationStep === 1) {
+                conversationText.textContent = "Bellatrix: You foolish boy! You have no idea what true power is!";
+                harryImage.style.display = 'none';
+                bellatrixImage.style.display = 'block';
+                conversationStep++;
+            } else if (conversationStep === 2) {
+                conversationText.textContent = "Harry: I have something stronger than power... I have my friends, and we will stop you!";
+                harryImage.style.display = 'block';
+                bellatrixImage.style.display = 'none';
+                conversationStep++;
+            } else if (conversationStep === 3) {
+                conversationText.textContent = "Bellatrix: Ha! Let's see how brave you are when you're facing death itself!";
+                harryImage.style.display = 'none';
+                bellatrixImage.style.display = 'block';
+                conversationStep++;
+            } else {
+                alert("The duel begins! Prepare your wands!");
+            }
+        }
+    </script>
+</body>
+</html>
