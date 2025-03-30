@@ -15,7 +15,10 @@
             background-repeat: no-repeat;
         }
     </style>
-    <audio id="background-audio" autoplay loop></audio>
+    <audio id="background-audio" autoplay loop>
+        <source src="../content_part/Harry-Potter-Theme.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
         <source src="../content_part/Harry-Potter-Theme.mp3" type="audio/mpeg">
 
     </audio>
@@ -124,21 +127,22 @@
                 playButton.style.fontFamily = '"Gill Sans", sans-serif';
 
                 playButton.addEventListener('click', () => {
-                    const audio = new Audio('../content_part/audio.mp3'); // Replace with your audio file path
-                    audio.play();
+                    const audio = new Audio('../content_part/AUDIO-2025-03-30-09-44-55.m4a');
+                    audio.play().catch(error => {
+                        console.error('Audio playback failed:', error);
+                        alert('Please interact with the page (e.g., click a button) to enable audio playback.');
+                    });
                 });
 
                 narratorContainer.appendChild(narratorImage);
                 narratorContainer.appendChild(playButton);
                 document.body.appendChild(narratorContainer);
 
-                // Animate the container to move up
                 setTimeout(() => {
-                    narratorContainer.style.bottom = '20px'; // Final position
+                    narratorContainer.style.bottom = '20px'; 
                 }, 100);
             }
 
-            // Call the function to show the narrator after the text starts typing
             showNarrator();
 
            

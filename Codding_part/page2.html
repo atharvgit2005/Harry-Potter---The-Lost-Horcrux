@@ -15,9 +15,8 @@
             background-repeat: no-repeat;
         }
     </style>
-    <audio id="background-audio" autoplay loop></audio>
-        <source src="../content_part/Harry-Potter-Theme.mp3" type="audio/mpeg">
-        
+    <audio id="background-audio" autoplay>
+        <source src="../content_part/name_ask.m4a" type="audio/mpeg">
     </audio>
     <div class="instruction_box" style="
         display: flex;
@@ -53,11 +52,12 @@
                 const playerName = prompt("Enter your name:");
                 if (playerName) {
                     animatedTextElement.textContent += `\nWelcome, ${playerName}!`;
+                    const audio = new Audio('../content_part/welcome.m4a'); // Replace with your audio file
+                    audio.play();
                 } else {
                     animatedTextElement.textContent = "Welcome, Player!";
-                }
-                if (playerName) {
-                    animatedTextElement.textContent = `Welcome, ${playerName}!`;
+                    const audio = new Audio('../content_part/welcome.m4a'); // Replace with your audio file
+                    audio.play();
                 }
             }, 1000);
         const nextButton = document.createElement('button');
@@ -122,7 +122,7 @@
                 playButton.style.fontFamily = '"Gill Sans", sans-serif';
 
                 playButton.addEventListener('click', () => {
-                    const audio = new Audio('../content_part/audio.mp3'); // Replace with your audio file path
+                    const audio = new Audio('../content_part/welcome.m4a'); 
                     audio.play();
                 });
 

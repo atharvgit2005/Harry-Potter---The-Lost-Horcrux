@@ -20,25 +20,26 @@
             height: 100vh;
             padding: 0;
         }
-        .choices button {
-            font-size: 20px;
-            padding: 10px 20px;
+        .choices {
+            display: flex;
+            gap: 20px;
+        }
+        .photo {
+            text-align: center;
             margin: 10px;
-            cursor: pointer;
+        }
+        .photo img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+        .photo p {
+            margin-top: 5px;
+            font-size: 18px;
         }
         #result {
             font-size: 24px;
             margin-top: 20px;
-        }
-        #narrator-container {
-            position: fixed;
-            bottom: -200px;
-            left: 20px;
-            transform: translateX(0);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: bottom 1s ease-in-out;
         }
         #score {
             font-size: 20px;
@@ -74,10 +75,22 @@
 <body>
     <h1>Harry Potter Duel: Sword, Potion, Wand</h1>
     <div class="choices">
-        <button onclick="playGame('sword')">⚔️ Sword</button>
-        <button onclick="playGame('potion')">🧪 Potion</button>
-        <button onclick="playGame('wand')">🪄 Wand</button>
+        <div class="photo">
+            <img src="../content_part/sword.png" alt="Sword">
+            <p>Sword</p>
+            <button onclick="playGame('sword')">⚔️</button>
         </div>
+        <div class="photo">
+            <img src="../content_part/potion.png" alt="Potion">
+            <p>Potion</p>
+            <button onclick="playGame('potion')">🧪</button>
+        </div>
+        <div class="photo">
+            <img src="../content_part/wand.png" alt="Wand">
+            <p>Wand</p>
+            <button onclick="playGame('wand')">🪄</button>
+        </div>
+    </div>
     <p id="result"></p>
     <p id="score">Your Score: 0</p>
     
@@ -116,8 +129,9 @@
         }
 
         function showNarrator() {
-            const narratorContainer = document.getElementById('narrator-container');
-            narratorContainer.style.bottom = '20px';
+            setTimeout(() => {
+                document.getElementById('narrator-container').style.bottom = '20px';
+            }, 1000);
         }
 
         function playNarratorAudio() {
@@ -125,7 +139,8 @@
             audio.play();
         }
 
-        window.onload = showNarrator;
+        document.getElementById('score').style.marginBottom = '100px';
+        showNarrator();
     </script>
 </body>
 </html>
