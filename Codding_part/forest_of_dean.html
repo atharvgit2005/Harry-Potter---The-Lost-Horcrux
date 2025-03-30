@@ -3,144 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Harry Potter Duel</title>
+    <title>Harry Potter and the Lost Horcrux</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-image: url("../content_part/forest\ of\ dean.png");
+            background-image: url('../content_part/forest of dean.png');
             background-size: cover;
+            background-repeat: no-repeat;
             background-position: center;
-            color: white;
             margin: 0;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            padding: 0;
         }
-        .choices {
+        
+        .conversation-container {
+            position: relative;
+            width: 80%;
             display: flex;
-            gap: 20px;
-        }
-        .photo {
-            text-align: center;
-            margin: 10px;
-        }
-        .photo img {
-            width: 100px;
-            height: 100px;
-            object-fit: contain;
-        }
-        .photo p {
-            margin-top: 5px;
-            font-size: 18px;
-        }
-        #result {
-            font-size: 24px;
-            margin-top: 20px;
-        }
-        #score {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-        #narrator-container {
-            position: fixed;
-            bottom: -200px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            transition: bottom 1s ease-in-out;
+            justify-content: center;
         }
-        #narrator-container img {
-            width: 200px;
+        
+        .character {
+            position: absolute;
+            width: 400px;
             height: auto;
+            display: none;
         }
-        #narrator-container button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            background-color: rgb(84, 35, 5);
+        
+        .harry {
+            left: 5%;
+            z-index: 2;
+        }
+        
+        .bellatrix {
+            right: 5%;
+            z-index: 2;
+        }
+        
+        .conversation-box {
+            background-color: rgba(20, 20, 20, 0.9);
             color: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 50%;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 1.2em;
+            position: relative;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+        }
+        
+        .next-button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
             cursor: pointer;
-            font-family: 'Gill Sans', sans-serif;
+            transition: background 0.3s ease-in-out;
+        }
+        
+        .next-button:hover {
+            background-color: #b71c1c;
         }
     </style>
 </head>
 <body>
-    <h1>Harry Potter Duel: Sword, Potion, Wand</h1>
-    <div class="choices">
-        <div class="photo">
-            <img src="../content_part/sword.png" alt="Sword">
-            <p>Sword</p>
-            <button onclick="playGame('sword')">⚔️</button>
+    <div class="conversation-container">
+        <img src="../content_part/Harry.png" class="character harry" id="harry">
+        <img src="../content_part/bellatrix.png" class="character bellatrix" id="bellatrix">
+        <div class="conversation-box">
+            <p id="conversation-text">Bellatrix: "Harry, you cannot escape me! The Dark Lord will have his revenge!"</p>
+            <button class="next-button" onclick="nextConversation()">Next</button>
         </div>
-        <div class="photo">
-            <img src="../content_part/potion.png" alt="Potion">
-            <p>Potion</p>
-            <button onclick="playGame('potion')">🧪</button>
-        </div>
-        <div class="photo">
-            <img src="../content_part/wand.png" alt="Wand">
-            <p>Wand</p>
-            <button onclick="playGame('wand')">🪄</button>
-        </div>
-    </div>
-    <p id="result"></p>
-    <p id="score">Your Score: 0</p>
-    
-    <div id="narrator-container">
-        <img src="../content_part/OG hagrid.png" alt="Narrator">
-        <button onclick="playNarratorAudio()">Play Audio</button>
     </div>
     
     <script>
-        let playerScore = 0;
-
-        function playGame(playerChoice) {
-            const choices = ['sword', 'potion', 'wand'];
-            const computerChoice = choices[Math.floor(Math.random() * 3)];
-            let result = '';
-
-            if (playerChoice === computerChoice) {
-                result = "It's a draw!";
-            } else if (
-                (playerChoice === 'sword' && computerChoice === 'wand') ||
-                (playerChoice === 'wand' && computerChoice === 'potion') ||
-                (playerChoice === 'potion' && computerChoice === 'sword')
-            ) {
-                result = `You win! ${playerChoice} beats ${computerChoice}.`;
-                playerScore++;
+        let conversationStep = 0;
+        const harryImage = document.getElementById('harry');
+        const bellatrixImage = document.getElementById('bellatrix');
+        const conversationText = document.getElementById('conversation-text');
+        
+        function nextConversation() {
+            if (conversationStep === 0) {
+                conversationText.textContent = "Harry: I won't let you win, Bellatrix! Your dark magic ends here!";
+                harryImage.style.display = 'block';
+                bellatrixImage.style.display = 'none';
+                conversationStep++;
+            } else if (conversationStep === 1) {
+                conversationText.textContent = "Bellatrix: You foolish boy! You have no idea what true power is!";
+                harryImage.style.display = 'none';
+                bellatrixImage.style.display = 'block';
+                conversationStep++;
+            } else if (conversationStep === 2) {
+                conversationText.textContent = "Harry: I have something stronger than power... I have my friends, and we will stop you!";
+                harryImage.style.display = 'block';
+                bellatrixImage.style.display = 'none';
+                conversationStep++;
+            } else if (conversationStep === 3) {
+                conversationText.textContent = "Bellatrix: Ha! Let's see how brave you are when you're facing death itself!";
+                harryImage.style.display = 'none';
+                bellatrixImage.style.display = 'block';
+                conversationStep++;
             } else {
-                result = `You lose! Bellatrix chose ${computerChoice} and beats ${playerChoice}.`;
-            }
-
-            document.getElementById('result').innerText = `Bellatrix chose ${computerChoice}.\n${result}`;
-            document.getElementById('score').innerText = `Your Score: ${playerScore}`;
-
-            if (playerScore === 3) {
-                window.location.href = 'win.html';
+                alert("The duel begins! Prepare your wands!")
+                window.location.href = "duel_scene.html";
             }
         }
-
-        function showNarrator() {
-            setTimeout(() => {
-                document.getElementById('narrator-container').style.bottom = '20px';
-            }, 1000);
-        }
-
-        function playNarratorAudio() {
-            const audio = new Audio('../content_part/audio.mp3');
-            audio.play();
-        }
-
-        document.getElementById('score').style.marginBottom = '100px';
-        showNarrator();
     </script>
 </body>
 </html>

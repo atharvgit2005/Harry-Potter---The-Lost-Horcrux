@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter Duel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url("../content_part/forest\ of\ dean.png");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            padding: 0;
+        }
+        .choices {
+            display: flex;
+            gap: 20px;
+        }
+        .photo {
+            text-align: center;
+            margin: 10px;
+        }
+        .photo img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+        .photo p {
+            margin-top: 5px;
+            font-size: 18px;
+        }
+        #result {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+        #score {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        #narrator-container {
+            position: fixed;
+            bottom: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: bottom 1s ease-in-out;
+        }
+        #narrator-container img {
+            width: 200px;
+            height: auto;
+        }
+        #narrator-container button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(84, 35, 5);
+            color: white;
+            cursor: pointer;
+            font-family: 'Gill Sans', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Harry Potter Duel: Sword, Potion, Wand</h1>
+    <div class="choices">
+        <div class="photo">
+            <img src="../content_part/sword.png" alt="Sword">
+            <p>Sword</p>
+            <button onclick="playGame('sword')">⚔️</button>
+        </div>
+        <div class="photo">
+            <img src="../content_part/potion.png" alt="Potion">
+            <p>Potion</p>
+            <button onclick="playGame('potion')">🧪</button>
+        </div>
+        <div class="photo">
+            <img src="../content_part/wand.png" alt="Wand">
+            <p>Wand</p>
+            <button onclick="playGame('wand')">🪄</button>
+        </div>
+    </div>
+    <p id="result"></p>
+    <p id="score">Your Score: 0</p>
+    
+    <div id="narrator-container">
+        <img src="../content_part/OG hagrid.png" alt="Narrator">
+        <button onclick="playNarratorAudio()">Play Audio</button>
+    </div>
+    
+    <script>
+        let playerScore = 0;
+
+        function playGame(playerChoice) {
+            const choices = ['sword', 'potion', 'wand'];
+            const computerChoice = choices[Math.floor(Math.random() * 3)];
+            let result = '';
+
+            if (playerChoice === computerChoice) {
+                result = "It's a draw!";
+            } else if (
+                (playerChoice === 'sword' && computerChoice === 'wand') ||
+                (playerChoice === 'wand' && computerChoice === 'potion') ||
+                (playerChoice === 'potion' && computerChoice === 'sword')
+            ) {
+                result = `You win! ${playerChoice} beats ${computerChoice}.`;
+                playerScore++;
+            } else {
+                result = `You lose! Bellatrix chose ${computerChoice} and beats ${playerChoice}.`;
+            }
+
+            document.getElementById('result').innerText = `Bellatrix chose ${computerChoice}.\n${result}`;
+            document.getElementById('score').innerText = `Your Score: ${playerScore}`;
+
+            if (playerScore === 3) {
+                window.location.href = 'win.html';
+            }
+        }
+
+        function showNarrator() {
+            setTimeout(() => {
+                document.getElementById('narrator-container').style.bottom = '20px';
+            }, 1000);
+        }
+
+        function playNarratorAudio() {
+            const audio = new Audio('../content_part/instru_2.m4a');
+            audio.play();
+        }
+
+        document.getElementById('score').style.marginBottom = '100px';
+        document.getElementById('narrator-container').style.left = '20px';
+        document.getElementById('narrator-container').style.transform = 'none';
+        showNarrator();
+
+        function showInstructions() {
+            const instructions = [
+            "Welcome to the duel!",
+            "You will face Bellatrix in a game of Sword, Potion, Wand.",
+            "Sword beats Wand, Wand beats Potion, and Potion beats Sword.",
+            "First to score 3 points wins the duel!"
+            ];
+
+            let currentInstruction = 0;
+            const instructionBox = document.createElement('div');
+            instructionBox.id = 'instruction-box';
+            instructionBox.style.position = 'fixed';
+            instructionBox.style.top = '50%';
+            instructionBox.style.left = '50%';
+            instructionBox.style.transform = 'translate(-50%, -50%)';
+            instructionBox.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+            instructionBox.style.color = 'white';
+            instructionBox.style.padding = '20px';
+            instructionBox.style.borderRadius = '10px';
+            instructionBox.style.textAlign = 'center';
+            instructionBox.style.zIndex = '1000';
+
+            const instructionText = document.createElement('p');
+            instructionText.innerText = instructions[currentInstruction];
+            instructionBox.appendChild(instructionText);
+
+            const nextButton = document.createElement('button');
+            nextButton.innerText = 'Next';
+            nextButton.style.marginTop = '10px';
+            nextButton.style.padding = '10px 20px';
+            nextButton.style.fontSize = '16px';
+            nextButton.style.borderRadius = '5px';
+            nextButton.style.border = 'none';
+            nextButton.style.backgroundColor = 'rgb(84, 35, 5)';
+            nextButton.style.color = 'white';
+            nextButton.style.cursor = 'pointer';
+
+            nextButton.onclick = () => {
+            currentInstruction++;
+            if (currentInstruction < instructions.length) {
+                instructionText.innerText = instructions[currentInstruction];
+            } else {
+                const startButton = document.createElement('button');
+                startButton.innerText = "Let's Dwell!";
+                startButton.style.marginTop = '10px';
+                startButton.style.padding = '10px 20px';
+                startButton.style.fontSize = '16px';
+                startButton.style.borderRadius = '5px';
+                startButton.style.border = 'none';
+                startButton.style.backgroundColor = 'rgb(84, 35, 5)';
+                startButton.style.color = 'white';
+                startButton.style.cursor = 'pointer';
+
+                startButton.onclick = () => {
+                document.body.removeChild(instructionBox);
+                };
+
+                instructionBox.removeChild(nextButton);
+                instructionBox.appendChild(startButton);
+            }
+            };
+
+            instructionBox.appendChild(nextButton);
+            document.body.appendChild(instructionBox);
+        }
+
+        document.querySelector('#narrator-container button').onclick = () => {
+            playNarratorAudio();
+            showInstructions();
+        };
+
+    </script>
+</body>
+</html>

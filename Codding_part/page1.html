@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Harry Potter Game</title>
+    <link rel="stylesheet" href="index.css" type="text/css">
 </head>
-<link rel="stylesheet" href="index.css" type="text/css">
 <body>
     <style>
         body {
@@ -15,13 +15,12 @@
             background-repeat: no-repeat;
         }
     </style>
-    <audio id="background-audio" autoplay loop>
-        <source src="../content_part/Harry-Potter-Theme.mp3" type="audio/mpeg">
+
+    <audio id="narrator-audio">
+        <source src="../content_part/1st intr.m4a" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-        <source src="../content_part/Harry-Potter-Theme.mp3" type="audio/mpeg">
 
-    </audio>
     <div class="instruction_box" style="
         display: flex;
         justify-content: center;
@@ -37,137 +36,104 @@
         text-align: center;
     ">
         <p id="animatedText" style="font-size: 20px; color: #333; padding: 10px; white-space: pre-wrap; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"></p>
-        <script>
-            const text = `"Ah! There yeh are! I was hopin’ yeh’d show up. The name’s Rubeus Hagrid, Keeper of Keys and Grounds at Hogwarts. Yeh must be wonderin’ why I’m here, eh? Well, it's serious business this time." \n\n
+    </div>
+
+    <script>
+        const text = `"There yeh are! I was hopin’ yeh’d show up. The name’s Rubeus Hagrid, Keeper of Keys and Grounds at Hogwarts. Yeh must be wonderin’ why I’m here, eh? Well, it's serious business this time." \n\n
         "Harry’s discovered somethin’ terrible—another Horcrux. Now, if yeh don’t know what a Horcrux is, it’s a dark bit o’ magic. Real nasty stuff. You-Know-Who—Voldemort—split his soul into pieces, hidin’ ‘em in objects to make himself immortal. Destroyin’ ‘em is the only way to finish ‘im for good." \n\n
         "Harry, Ron, and Hermione can’t do this alone. They need someone brave, someone ready to face danger. That’s where you come in! Will yeh help ‘em track down the lost Horcruxes and put an end to Voldemort’s evil for good?"`;
 
-            const animatedTextElement = document.getElementById('animatedText');
-            let index = 0;
+        const animatedTextElement = document.getElementById('animatedText');
+        const narratorAudio = document.getElementById('narrator-audio');
+        let index = 0;
 
-            function typeText() {
-                if (index < text.length) {
-                    animatedTextElement.textContent += text[index];
-                    index++;
-                    setTimeout(typeText, 100); 
-                }
+        function typeText() {
+            if (index < text.length) {
+                animatedTextElement.textContent += text[index];
+                index++;
+                setTimeout(typeText, 44);
+            } else {
+                addYesButton();
             }
+        }
 
-            typeText();
+        function addYesButton() {
+            const button = document.createElement('button');
+            button.textContent = 'Yes';
+            button.style = `margin-top: 20px; padding: 10px 20px; font-size: 16px; border-radius: 5px; border: none; background-color: rgb(84, 35, 5); color: white; cursor: pointer; font-family:'Gill Sans', sans-serif;`;
+            button.addEventListener('click', () => window.location.href = 'page2.html');
+            animatedTextElement.parentElement.appendChild(button);
+        }
 
-            // Add a button after the text finishes typing
-            function addYesButton() {
-                const button = document.createElement('button');
-                button.textContent = 'Yes';
-                button.style.marginTop = '20px';
-                button.style.padding = '10px 20px';
-                button.style.fontSize = '16px';
-                button.style.borderRadius = '5px';
-                button.style.border = 'none';
-                button.style.backgroundColor = 'rgb(84, 35, 5)';
-                button.style.color = 'white';
-                button.style.cursor = 'pointer';
-                button.style.fontFamily='"Gill Sans", sans-serif'
-                button.style.marginRight = '1px';
+        function showNarrator() {
+            const narratorContainer = document.createElement('div');
+            narratorContainer.style = 'position: fixed; bottom: -200px; left: 20px; display: flex; flex-direction: column; align-items: center; transition: bottom 1s ease-in-out;';
 
-                button.addEventListener('click', () => {
-                    window.location.href = 'page2.html'; 
-                });
+            const narratorImage = document.createElement('img');
+            narratorImage.src = '../content_part/OG hagrid.png';
+            narratorImage.alt = 'Narrator';
+            narratorImage.style = 'width: 150px; height: auto;';
 
-                animatedTextElement.parentElement.appendChild(button);
-            }
+            const playPauseButton = document.createElement('button');
+            playPauseButton.textContent = 'Pause Audio';
+            playPauseButton.style = 'margin-top: 10px; padding: 10px 20px; font-size: 16px; border-radius: 5px; border: none; background-color: rgb(84, 35, 5); color: white; cursor: pointer; font-family: "Gill Sans", sans-serif;';
 
-            // Modify typeText to call addYesButton when done
-            function typeText() {
-                if (index < text.length) {
-                    animatedTextElement.textContent += text[index];
-                    index++;
-                    setTimeout(typeText,); 
+            playPauseButton.addEventListener('click', () => {
+                if (narratorAudio.paused) {
+                    narratorAudio.play();
+                    playPauseButton.textContent = 'Pause Audio';
                 } else {
-                    addYesButton(); // Call the function to add the button
+                    narratorAudio.pause();
+                    playPauseButton.textContent = 'Play Audio';
                 }
-            }
-            // Function to animate the narrator image
-            function enlargeNarrator() {
-                const narratorImage = document.querySelector('img[src="../content_part/OG hagrid.png"]');
-                if (narratorImage) {
-                    narratorImage.style.width = '200px'; // Increase width
-                    narratorImage.style.height = 'auto'; // Maintain aspect ratio
-                }
-            }
+            });
 
-            // Call the function to enlarge the narrator after it appears
-            setTimeout(enlargeNarrator, 1100); // Delay to ensure the narrator is visible
-            function showNarrator() {
-                const narratorContainer = document.createElement('div');
-                narratorContainer.style.position = 'fixed';
-                narratorContainer.style.bottom = '-200px'; // Start off-screen
-                narratorContainer.style.left = '20px';
-                narratorContainer.style.display = 'flex';
-                narratorContainer.style.flexDirection = 'column';
-                narratorContainer.style.alignItems = 'center';
-                narratorContainer.style.transition = 'bottom 1s ease-in-out';
+            narratorContainer.appendChild(narratorImage);
+            narratorContainer.appendChild(playPauseButton);
+            document.body.appendChild(narratorContainer);
 
-                const narratorImage = document.createElement('img');
-                narratorImage.src = '../content_part/OG hagrid.png'; // Replace with your image link
-                narratorImage.alt = 'Narrator';
-                narratorImage.style.width = '150px'; // Adjust size as needed
-                narratorImage.style.height = 'auto';
+            setTimeout(() => narratorContainer.style.bottom = '20px', 100);
+        }
 
-                const playButton = document.createElement('button');
-                playButton.textContent = 'Play Audio';
-                playButton.style.marginTop = '10px';
-                playButton.style.padding = '10px 20px';
-                playButton.style.fontSize = '16px';
-                playButton.style.borderRadius = '5px';
-                playButton.style.border = 'none';
-                playButton.style.backgroundColor = 'rgb(84, 35, 5)';
-                playButton.style.color = 'white';
-                playButton.style.cursor = 'pointer';
-                playButton.style.fontFamily = '"Gill Sans", sans-serif';
+        function autoplayAudio() {
+            narratorAudio.play().then(() => {
+                console.log("Audio autoplayed successfully.");
+            }).catch((error) => {
+                console.log("Autoplay failed, attempting workaround:", error);
+                document.addEventListener("click", () => {
+                    narratorAudio.play();
+                }, { once: true });
+            });
+        }
 
-                playButton.addEventListener('click', () => {
-                    const audio = new Audio('../content_part/AUDIO-2025-03-30-09-44-55.m4a');
-                    audio.play().catch(error => {
-                        console.error('Audio playback failed:', error);
-                        alert('Please interact with the page (e.g., click a button) to enable audio playback.');
-                    });
-                });
-
-                narratorContainer.appendChild(narratorImage);
-                narratorContainer.appendChild(playButton);
-                document.body.appendChild(narratorContainer);
-
-                setTimeout(() => {
-                    narratorContainer.style.bottom = '20px'; 
-                }, 100);
-            }
-
+        window.onload = function() {
+            autoplayAudio();
             showNarrator();
+            typeText();
+        };
 
-           
-        </script>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-         <div class="circle"></div>
-        <script src="index.js"></script>
-    </div>
-    
+    </script>
+
+
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+     <div class="circle"></div>
+    <script src="index.js"></script>
 </body>
 </html>
