@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-image: url("../content_part/forest\ of\ dean.png");
+            background-image: url("../content_part/forest.png");
             background-size: cover;
             background-position: center;
             color: white;
@@ -25,17 +25,24 @@
             gap: 20px;
         }
         .photo {
+            display:grid;
             text-align: center;
             margin: 10px;
         }
         .photo img {
-            width: 100px;
-            height: 100px;
+            width: 350px;
+            height: 350px;
             object-fit: contain;
         }
-        .photo p {
-            margin-top: 5px;
-            font-size: 18px;
+        .photo button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: rgb(84, 35, 5);
+            color: white;
+            cursor: pointer;
         }
         #result {
             font-size: 24px;
@@ -73,22 +80,23 @@
     </style>
 </head>
 <body>
-    <h1>Harry Potter Duel: Sword, Potion, Wand</h1>
+    <h1 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;font-weight: 900;">Duel</h1>
+    <h2 style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"> Sword, Potion, Wand</h2>
     <div class="choices">
         <div class="photo">
-            <img src="../content_part/sword.png" alt="Sword">
-            <p>Sword</p>
-            <button onclick="playGame('sword')">⚔️</button>
+            <img src="../content_part/griffindoor sword.png" alt="Sword">
+
+            <button onclick="playGame('sword')">Sword</button>
         </div>
         <div class="photo">
             <img src="../content_part/potion.png" alt="Potion">
-            <p>Potion</p>
-            <button onclick="playGame('potion')">🧪</button>
+
+            <button onclick="playGame('potion')">Potion</button>
         </div>
         <div class="photo">
             <img src="../content_part/wand.png" alt="Wand">
-            <p>Wand</p>
-            <button onclick="playGame('wand')">🪄</button>
+
+            <button onclick="playGame('wand')">Wand</button>
         </div>
     </div>
     <p id="result"></p>
