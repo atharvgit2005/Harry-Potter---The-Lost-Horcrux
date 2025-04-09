@@ -135,7 +135,26 @@
             showNarrator();
             typeText();
         };
+        const skipButton = document.createElement('button');
+        skipButton.textContent = 'Skip';
+        skipButton.style = `position: fixed; top: 20px; right: 20px; padding: 10px 20px; font-size: 16px; border-radius: 5px; border: none; background-color: rgb(84, 35, 5); color: white; cursor: pointer; font-family:'Gill Sans', sans-serif; z-index: 10000;`;
+        document.body.appendChild(skipButton);
 
+        let typingSpeed = 44; // Default typing speed
+
+        skipButton.addEventListener('click', () => {
+            typingSpeed = 5; // Reduce typing speed significantly
+        });
+
+        function typeText() {
+            if (index < text.length) {
+            animatedTextElement.textContent += text[index];
+            index++;
+            setTimeout(typeText, typingSpeed);
+            } else {
+            addYesButton();
+            }
+        }
     </script>
 
 
