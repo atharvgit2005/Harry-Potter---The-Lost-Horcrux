@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css" type="text/css">
+</head>
+<body>
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <style>
+        body {
+            background-image: url('../content_part/aa775f5e2a776159339c88bbf2050435.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <div class="instruction_box" style="
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: bisque;
+        border-radius: 15px;
+        width: 70%;
+        border: 4px solid rgb(84, 35, 5);
+        height: 400px;
+        margin: auto;
+        margin-top: 13%;
+        box-shadow: 0 4px 8px rgba(41, 40, 40, 0.2);
+        text-align: center;
+    ">
+        <p id="animatedText" style="font-size: 20px; color: #333; padding: 10px; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"></p>
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px;">
+            <div class="location" data-link="diagon_alley.html" style="cursor: pointer; transition: transform 0.3s;">
+                <img src="../content_part/Diagon_Alley_North_Side.webp" alt="Diagon Alley" style="width: 100px; height: 100px; border-radius: 10px;border: 5px solid rgb(84, 35, 5)">
+                <p style="font-size: 14px; color: #333; margin-top: 5px; font-weight: bold;">Diagon Alley</p>
+            </div>
+            <div class="location" data-link="forest_of_dean.html" style="cursor: pointer; transition: transform 0.3s;">
+                <img src="../content_part/forest of dean.png" alt="Forest of Dean" style="width: 100px; height: 100px; border-radius: 10px;border: 5px solid rgb(84, 35, 5)">
+                <p style="font-size: 14px; color: #333; margin-top: 5px; font-weight: bold;">Forest Of Dean</p>
+            </div>
+            <div class="location" data-link="order_of_phoenix.html" style="cursor: pointer; transition: transform 0.3s;">
+                <img src="../content_part/headquarters.png" alt="Order of the Phoenix Headquarters" style="width: 100px; height: 100px; border-radius: 10px;border: 5px solid rgb(84, 35, 5)">
+                <p style="font-size: 14px; color: #333; margin-top: 5px; font-weight: bold;">Order of Phoenix HQ</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.location').forEach(div => {
+            div.addEventListener('click', () => {
+                window.location.href = div.getAttribute('data-link');
+            });
+            div.addEventListener('mouseover', () => div.style.transform = 'scale(1.1)');
+            div.addEventListener('mouseout', () => div.style.transform = 'scale(1)');
+        });
+
+        const text = "You have three places to start of & your task is find the locket of salszar slytherin ";
+        const animatedTextElement = document.getElementById('animatedText');
+        let index = 0;
+
+        function typeText() {
+            if (index < text.length) {
+                animatedTextElement.textContent += text[index];
+                index++;
+                setTimeout(typeText,); 
+            }
+        }
+
+        typeText();
+        function enlargeNarrator() {
+                const narratorImage = document.querySelector('img[src="../content_part/OG hagrid.png"]');
+                if (narratorImage) {
+                    narratorImage.style.width = '200px'; // Increase width
+                    narratorImage.style.height = 'auto'; // Maintain aspect ratio
+                }
+            }
+
+            // Call the function to enlarge the narrator after it appears
+            setTimeout(enlargeNarrator, 1100); // Delay to ensure the narrator is visible
+            function showNarrator() {
+                const narratorContainer = document.createElement('div');
+                narratorContainer.style.position = 'fixed';
+                narratorContainer.style.bottom = '-200px'; // Start off-screen
+                narratorContainer.style.left = '20px';
+                narratorContainer.style.display = 'flex';
+                narratorContainer.style.flexDirection = 'column';
+                narratorContainer.style.alignItems = 'center';
+                narratorContainer.style.transition = 'bottom 1s ease-in-out';
+
+                const narratorImage = document.createElement('img');
+                narratorImage.src = '../content_part/OG hagrid.png'; // Replace with your image link
+                narratorImage.alt = 'Narrator';
+                narratorImage.style.width = '150px'; // Adjust size as needed
+                narratorImage.style.height = 'auto';
+
+                const playButton = document.createElement('button');
+                playButton.textContent = 'Play Audio';
+                playButton.style.marginTop = '10px';
+                playButton.style.padding = '10px 20px';
+                playButton.style.fontSize = '16px';
+                playButton.style.borderRadius = '5px';
+                playButton.style.border = 'none';
+                playButton.style.backgroundColor = 'rgb(84, 35, 5)';
+                playButton.style.color = 'white';
+                playButton.style.cursor = 'pointer';
+                playButton.style.fontFamily = '"Gill Sans", sans-serif';
+
+                playButton.addEventListener('click', () => {
+                    const audio = new Audio('../content_part/audio.mp3'); // Replace with your audio file path
+                    audio.play();
+                });
+
+                narratorContainer.appendChild(narratorImage);
+                narratorContainer.appendChild(playButton);
+                document.body.appendChild(narratorContainer);
+
+                // Animate the container to move up
+                setTimeout(() => {
+                    narratorContainer.style.bottom = '20px'; // Final position
+                }, 100);
+            }
+
+            // Call the function to show the narrator after the text starts typing
+            showNarrator();
+
+            function showPopup() {
+                const popupContainer = document.createElement('div');
+                popupContainer.style.position = 'fixed';
+                popupContainer.style.top = '50%';
+                popupContainer.style.left = '50%';
+                popupContainer.style.transform = 'translate(-50%, -50%)';
+                popupContainer.style.backgroundColor = 'white';
+                popupContainer.style.border = '4px solid rgb(84, 35, 5)';
+                popupContainer.style.borderRadius = '15px';
+                popupContainer.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+                popupContainer.style.padding = '20px';
+                popupContainer.style.textAlign = 'center';
+                popupContainer.style.zIndex = '1000';
+
+                const popupImage = document.createElement('img');
+                popupImage.src = '../content_part/Untitled design.png'; // Replace with your image path
+                popupImage.alt = 'Quest Image';
+                popupImage.style.width = '200px';
+                popupImage.style.height = 'auto';
+                popupImage.style.marginBottom = '20px';
+
+                const okButton = document.createElement('button');
+                okButton.textContent = 'OK';
+                okButton.style.padding = '10px 20px';
+                okButton.style.fontSize = '16px';
+                okButton.style.borderRadius = '5px';
+                okButton.style.border = 'none';
+                okButton.style.backgroundColor = 'rgb(84, 35, 5)';
+                okButton.style.color = 'white';
+                okButton.style.cursor = 'pointer';
+                okButton.style.fontFamily = '"Gill Sans", sans-serif';
+
+                okButton.addEventListener('click', () => {
+                    document.body.removeChild(popupContainer);
+                });
+
+                popupContainer.appendChild(popupImage);
+                popupContainer.appendChild(okButton);
+                document.body.appendChild(popupContainer);
+            }
+
+      
+            setTimeout(showPopup, 100); 
+            
+    </script>
+    </script>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+    <div class="circle"></div>
+   <script src="index.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
